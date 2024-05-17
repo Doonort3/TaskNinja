@@ -1,0 +1,22 @@
+# CMake build directory
+out/build/
+
+# Compiled object files
+*.o
+*.obj
+
+# Compiled dynamic libraries
+*.so
+*.dylib
+
+# Compiled static libraries
+*.a
+
+# Executables
+*.exe
+*.out
+
+# Visual Studio specific files
+.vs/
+
+CMakePresets.json
