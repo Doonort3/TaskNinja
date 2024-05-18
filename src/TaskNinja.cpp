@@ -1,4 +1,5 @@
-﻿#include "TaskNinja.h"
+﻿#include "../include/TaskNinja.h"
+#include "../include/ConsoleUtils.h"
 #include <iostream>
 #include <sstream>
 #include <algorithm>
@@ -17,65 +18,53 @@ vector<string> splitString(const string& input) {
 }
 
 // Function to add a task
-void addTask(vector<Task>& tasks, const vector<string>& tokens) {
-    if (tokens.size() > 1) {
-        string taskName;
-        for (size_t i = 1; i < tokens.size(); ++i) {
-            taskName += tokens[i] + " ";
-        }
-        // Delete the last space
-        if (!taskName.empty()) {
-            taskName.pop_back();
-        }
+void addTask(vector<Task>& tasks, const vector<string>& tokens, vector<string>& logs) {
+    if (tokens.size() < 2) {
+        addLog(logs, "No task name specified.");
+        return;
+    }
 
-        Task newTask;
-        newTask.name = taskName;
-        newTask.description = "no description.";
-        tasks.push_back(newTask);
-        cout << "A new task has been added: " << newTask.name << "\n";
+    string taskName;
+    for (size_t i = 1; i < tokens.size(); ++i) {
+        taskName += tokens[i] + " ";
     }
-    else {
-        cout << "The name of the task is not specified.\n";
+    // Удаляем последний пробел
+    if (!taskName.empty()) {
+        taskName.pop_back();
     }
+
+    Task newTask;
+    newTask.name = taskName;
+    newTask.description = "No description.";
+    tasks.push_back(newTask);
+    addLog(logs, "Add: " + newTask.name);
 }
 
 // Function to delete a task
-void deleteTask(vector<Task>& tasks, const vector<string>& tokens) {
+void deleteTask(vector<Task>& tasks, const vector<string>& tokens, vector<string>& logs) {
     if (tokens.size() > 1) {
         try {
             size_t taskIndex = stoi(tokens[1]);
             if (taskIndex < tasks.size()) {
                 string deletedTaskName = tasks[taskIndex].name;
                 tasks.erase(tasks.begin() + taskIndex);
-                cout << "Task deleted: " << deletedTaskName << "\n";
+                addLog(logs, "Del: " + deletedTaskName);
             }
             else {
-                cout << "Incorrect task number.\n";
+                addLog(logs, "Incorrect task number.");
             }
         }
         catch (const exception& e) {
-            cout << "Error: Invalid task number format.\n";
+            addLog(logs, "Invalid task number format.");
         }
     }
     else {
-        cout << "No task number is specified for deletion.\n";
-    }
-}
-
-// Function to list tasks
-void listTasks(const vector<Task>& tasks) {
-    if (tasks.empty()) {
-        cout << "The task list is empty.\n";
-    }
-    else {
-        for (size_t i = 0; i < tasks.size(); ++i) {
-            cout << i << ": " << tasks[i].name << " - " << tasks[i].description << endl;
-        }
+        addLog(logs, "No task number specified.");
     }
 }
 
 // Function to edit a task
-void editTask(vector<Task>& tasks, const vector<string>& tokens) {
+void editTask(vector<Task>& tasks, const vector<string>& tokens, vector<string>& logs) {
     if (tokens.size() > 3) {
         try {
             size_t taskIndex = stoul(tokens[1]);
@@ -94,27 +83,35 @@ void editTask(vector<Task>& tasks, const vector<string>& tokens) {
                    the '-d' key changes the task description */
                 if (option == "-n") {
                     tasks[taskIndex].name = newContent;
-                    cout << "Name of task number " << taskIndex << " changed: " << tasks[taskIndex].name << " - " << tasks[taskIndex].description << endl;
+                    addLog(logs, "Name updated: " + newContent);
                 }
                 else if (option == "-d") {
                     tasks[taskIndex].description = newContent;
-                    cout << "Description of task number " << taskIndex << " changed: " << tasks[taskIndex].name << " - " << tasks[taskIndex].description << endl;
+                    addLog(logs, "Desc updated: " + newContent);
                 }
                 else {
-                    cout << "Unknown option: " << option << "\n";
+                    addLog(logs, "Unknown option: " + option);
                 }
             }
             else {
-                cout << "Invalid task number.\n";
+                addLog(logs, "Invalid task number.");
             }
         }
         catch (const exception& e) {
-            cout << "Error: Invalid task number format.\n";
+            addLog(logs, "Invalid task number format.");
         }
     }
     else {
-        cout << "Insufficient arguments to edit the task.\n";
+        addLog(logs, "Insufficient arguments.");
     }
+}
+
+void addLog(vector<string>& logs, const string& message) {
+    logs.push_back(message);
+}
+
+void clearLogs(std::vector<std::string>& logs) {
+    logs.clear();
 }
 
 // Function to convert a string to lowercase

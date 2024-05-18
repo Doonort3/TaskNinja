@@ -1,4 +1,6 @@
-#include "TaskNinja.h"
+#include "../include/TaskNinja.h"
+#include "../include/ConsoleUtils.h"
+#include "../include/RenderUtils.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -7,35 +9,40 @@ using namespace std;
 
 int main() {
     vector<Task> tasks;
+    vector<string> logs;
     string userInput;
+    int rows, cols;
+    getConsoleSize(rows, cols);
 
     while (true) {
+        clearConsole();
+        displayTaskListHeader(tasks, logs);
+        setCursorPosition(0, rows - 1); // I set the caret to the very bottom of the console for the command entry field
         cout << "> ";
         getline(cin, userInput);
 
-        // Convert string to lower case
         string commands = toLower(userInput);
         vector<string> tokens = splitString(commands);
 
         if (!tokens.empty()) {
             if (tokens[0] == "add_task") {
-                addTask(tasks, tokens);
+                addTask(tasks, tokens, logs);
             }
             else if (tokens[0] == "del_task") {
-                deleteTask(tasks, tokens);
-            }
-            else if (tokens[0] == "list") {
-                listTasks(tasks);
+                deleteTask(tasks, tokens, logs);
             }
             else if (tokens[0] == "edit_task") {
-                editTask(tasks, tokens);
+                editTask(tasks, tokens, logs);
+            }
+            else if (tokens[0] == "clear_logs") {
+                clearLogs(logs);
             }
             else {
-                cout << "Unknown command: " << tokens[0] << "\n";
+                addLog(logs, "Unknown cmd: " + tokens[0]);
             }
         }
         else {
-            cout << "Empty input. Enter the command.\n";
+            addLog(logs, "Empty input.");
         }
     }
     return 0;
