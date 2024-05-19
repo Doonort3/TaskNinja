@@ -12,7 +12,7 @@ endif()
 project ("TaskNinja")
 
 # Добавьте источник в исполняемый файл этого проекта.
-add_executable (TaskNinja "src/TaskNinja.cpp" "include/TaskNinja.h" "src/main.cpp" "include/ConsoleUtils.h" "src/ConsoleUtils.cpp" "include/RenderUtils.h")
+add_executable (TaskNinja "src/TaskNinja.cpp" "include/TaskNinja.h" "src/main.cpp" "include/ConsoleUtils.h" "src/ConsoleUtils.cpp" "include/RenderUtils.h" "src/RenderUtils.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET TaskNinja PROPERTY CXX_STANDARD 20)

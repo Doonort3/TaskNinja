@@ -21,11 +21,6 @@ void addTask(std::vector<Task>& tasks, const std::vector<std::string>& tokens, s
 void editTask(std::vector<Task>& tasks, const std::vector<std::string>& tokens, std::vector<std::string>& logs);
 void deleteTask(std::vector<Task>& tasks, const std::vector<std::string>& tokens, std::vector<std::string>& logs);
 
-void displayTaskListHeader(const std::vector<Task>& tasks, std::vector<std::string>& logs);
-void renderTasks(const std::vector<Task>& tasks, int descTab);
-void renderLogs(const std::vector<std::string>& logs, int logsTab, int maxLogLength);
-void renderSeparator(int cols);
-
 std::string toLower(const std::string& str);
 
 

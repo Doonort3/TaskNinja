@@ -14,6 +14,26 @@ int main() {
     int rows, cols;
     getConsoleSize(rows, cols);
 
+    //// DEBUG START
+    //Task testTaskName;
+    //testTaskName.name = "test nameqqqqqqqqqqqqqqqqqqqqqqqqqqqq";
+    //testTaskName.description = "test description";
+    //tasks.push_back(testTaskName);
+    //addLog(logs, "test name space");
+
+    //Task testTaskDesc;
+    //testTaskDesc.name = "test name";
+    //testTaskDesc.description = "test descriptionwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww";
+    //tasks.push_back(testTaskDesc);
+    //addLog(logs, "test desc space");
+
+    //Task testTaskLog;
+    //testTaskDesc.name = "test name";
+    //testTaskDesc.description = "test description";
+    //tasks.push_back(testTaskDesc);
+    //addLog(logs, "test logs spacewwwwwwwwwwwwwwwwwwwwwwwwww");
+    //// DEBUG END
+
     while (true) {
         clearConsole();
         displayTaskListHeader(tasks, logs);
