@@ -7,7 +7,6 @@
 #include <unistd.h>
 #endif
 
-// Function to get the console size
 void getConsoleSize(int& rows, int& cols) {
 #ifdef _WIN32
     // Getting information about the console screen buffer in Windows
@@ -26,7 +25,6 @@ void getConsoleSize(int& rows, int& cols) {
 #endif
 }
 
-// Function to set the cursor position
 void setCursorPosition(int x, int y) {
 #ifdef _WIN32
     // Setting the cursor position in Windows using the COORD structure
@@ -40,13 +38,10 @@ void setCursorPosition(int x, int y) {
 #endif
 }
 
-// Function to clear the console
 void clearConsole() {
 #ifdef _WIN32
-    // Clearing the console in Windows using the cls command
     system("cls");
 #else
-    // Clearing the console in Unix-like systems using the clear command
     system("clear");
 #endif
 }

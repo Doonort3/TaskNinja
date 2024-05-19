@@ -42,6 +42,13 @@ void addTask(vector<Task>& tasks, const vector<string>& tokens, vector<string>& 
 
 // Function to delete a task
 void deleteTask(vector<Task>& tasks, const vector<string>& tokens, vector<string>& logs) {
+
+    if (tokens.size() > 2)
+    {
+        addLog(logs, "Superfluous arguments.");
+        return;
+    }
+
     if (tokens.size() > 1) {
         try {
             size_t taskIndex = stoi(tokens[1]);
@@ -104,6 +111,44 @@ void editTask(vector<Task>& tasks, const vector<string>& tokens, vector<string>&
     else {
         addLog(logs, "Insufficient arguments.");
     }
+}
+
+
+void showTaskDetails(vector<Task>& tasks, const vector<string>& tokens, vector<string>& logs) {
+    if (tokens.size() > 2) 
+    {
+        addLog(logs, "Superfluous arguments.");
+        return;
+    }
+
+    if (tokens.size() > 1) {
+        try
+        {
+            clearConsole();
+            size_t taskIndex = stoul(tokens[1]);
+            if (taskIndex < tasks.size()) {
+                size_t taskIndex = stoul(tokens[1]);
+                    Task& task = tasks[taskIndex];
+                    // setCursorPosition(0, 0);
+                    std::cout << "Task Name: " << task.name << std::endl;
+                    std::cout << "Description: " << task.description << std::endl;
+            }
+            else {
+                addLog(logs, "Invalid task number.");
+            }
+        }
+        catch (const std::exception&)
+        {
+            addLog(logs, "Invalid task number format.");
+        }
+    }
+    else {
+        addLog(logs, "Insufficient arguments.");
+    }
+   
+    // while (true) {
+        // Реализовать команды для редактирования открытой задачи
+    // }
 }
 
 void addLog(vector<string>& logs, const string& message) {

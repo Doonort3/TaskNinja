@@ -1,3 +1,4 @@
+#include "../include/Task.h"
 #include "../include/TaskNinja.h"
 #include "../include/ConsoleUtils.h"
 #include "../include/RenderUtils.h"
@@ -8,35 +9,36 @@
 using namespace std;
 
 int main() {
-    vector<Task> tasks;
+    // vector<Task> tasks; раскоментируй когда коммитить будешь
+    // bool isTaskOpen;
     vector<string> logs;
     string userInput;
     int rows, cols;
     getConsoleSize(rows, cols);
 
-    //// DEBUG START
-    //Task testTaskName;
-    //testTaskName.name = "test nameqqqqqqqqqqqqqqqqqqqqqqqqqqqq";
-    //testTaskName.description = "test description";
-    //tasks.push_back(testTaskName);
-    //addLog(logs, "test name space");
+    // DEBUG START
+    std::vector<Task> tasks = {
+    {0, "Short task name", "Short description"},
+    {1, "This is a much longer task name that should be truncated", "This description is also very long and should be truncated to fit in the console"}
+    };
 
-    //Task testTaskDesc;
-    //testTaskDesc.name = "test name";
-    //testTaskDesc.description = "test descriptionwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww";
-    //tasks.push_back(testTaskDesc);
-    //addLog(logs, "test desc space");
+    // showTaskDetails(tasks, { "open_task", "0" }, logs, isTaskOpen);
+    // cout << "\n\n" << isTaskOpen << "\n";
+    //setCursorPosition(0, rows - 1);
+    //userInput = getInput();
+    // DEBUG END
 
-    //Task testTaskLog;
-    //testTaskDesc.name = "test name";
-    //testTaskDesc.description = "test description";
-    //tasks.push_back(testTaskDesc);
-    //addLog(logs, "test logs spacewwwwwwwwwwwwwwwwwwwwwwwwww");
-    //// DEBUG END
+ /*   clearConsole();
+    displayTaskListHeader(tasks, logs);
+    setCursorPosition(0, rows - 1);
+    cout << "> ";
+    getline(cin, userInput);*/
 
     while (true) {
+        // isTaskOpen = false;
+
         clearConsole();
-        displayTaskListHeader(tasks, logs);
+        displayTaskListHeader(tasks, logs); 
         setCursorPosition(0, rows - 1); // I set the caret to the very bottom of the console for the command entry field
         cout << "> ";
         getline(cin, userInput);
@@ -56,6 +58,10 @@ int main() {
             }
             else if (tokens[0] == "clear_logs") {
                 clearLogs(logs);
+            }
+            else if (tokens[0] == "open_task") {
+                showTaskDetails(tasks, tokens, logs);
+                getchar();
             }
             else {
                 addLog(logs, "Unknown cmd: " + tokens[0]);

@@ -1,3 +1,4 @@
+#include "../include/Task.h"
 #include "../include/RenderUtils.h"
 #include "../include/TaskNinja.h"
 
@@ -9,7 +10,7 @@ void displayTaskListHeader(const std::vector<Task>& tasks, std::vector<std::stri
         "Space" prefix - Space occupied by the table row */
     int nameTab = 6;
     int indexSpace = 5; 
-    int descTab = cols / 4;
+    int descTab = cols / 3;
     int logsTab = cols - 30;
     int logsSpace = cols - logsTab;
     int descSpace = cols - descTab - logsSpace;
@@ -41,25 +42,30 @@ void renderTasks(const std::vector<Task>& tasks, int descTab, int nameTab, int m
         std::string displayName = task.name;
         std::string displayDesc = task.description;
 
+        // Truncate name if it's too long
         if (displayName.length() > maxNameLength) {
             displayName = displayName.substr(0, maxNameLength - 3) + "...";
         }
 
+        // Truncate description if it's too long
         if (displayDesc.length() > maxDescLength) {
             displayDesc = displayDesc.substr(0, maxDescLength - 3) + "...";
         }
-        // 2 cols, i + 2 rows (start 3 row). Each iteration of rows is added
+
+        // Set cursor position for task index and print it
         setCursorPosition(2, i + 2);
         std::cout << i;
-        // 6 cols, i + 2 rows (start 3 row).
+
+        // Set cursor position for task name and print it
         setCursorPosition(nameTab, i + 2);
         std::cout << "| " << displayName;
 
-        // cols / 4 (ex. windows 120 / 4 = 30), i + 2 rows (start 3 row).
+        // Set cursor position for task description and print it
         setCursorPosition(descTab, i + 2);
         std::cout << "| " << displayDesc << "\n";
     }
 }
+
 
 void renderLogs(const std::vector<std::string>& logs, int logsTab, int maxLogLength) {
     int logIndex = 0;
