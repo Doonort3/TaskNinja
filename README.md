@@ -12,7 +12,7 @@ is a powerful, console-based task manager written in C++ and built using CMake. 
 - **Edit Tasks**: Update task names and descriptions.
 - **Saving**: The task list is saved in a separate file for restoring between sessions.
 - **Interface rendering**: Updated list of tasks and logs.
-- **TaskVview**: You can view all task details.
+- **TaskView**: You can view all task details.
 
 ## Future Features (updatable)
 
@@ -104,9 +104,9 @@ is a powerful, console-based task manager written in C++ and built using CMake. 
 
 2. Type "help" to get all available commands
 
-        ```sh
-        help
-        ```
+   ```sh
+   help
+   ```
 
 ## Contributing
 
