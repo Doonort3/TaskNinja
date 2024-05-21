@@ -113,7 +113,7 @@ void saveNewTasksToFile(const std::vector<Task>& tasks) {
 
     std::vector<Task> newTasks;
     for (const auto& t : tasks) {
-        auto it = std::find_if(existingTasks.begin(), existingTasks.end(), [&t](const Task& existingTask) {
+        auto it = std::ranges::find_if(existingTasks.begin(), existingTasks.end(), [&t](const Task& existingTask) {
             return existingTask.index == t.index;
             });
         if (it == existingTasks.end()) {
