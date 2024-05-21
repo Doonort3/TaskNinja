@@ -1,38 +1,37 @@
+/*****************************************************************//**
+ * \file   RenderUtils.cpp
+ * \brief  This file contains the functions for rendering the interface.
+ * 
+ * \author ikuyu
+ * \date   May 2024
+ *********************************************************************/
+
 #include "../include/Task.h"
 #include "../include/RenderUtils.h"
 #include "../include/TaskNinja.h"
+#include "../include/Config.h"
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <algorithm>
 
 void displayTaskListHeader(const std::vector<Task>& tasks, std::vector<std::string>& logs) {
-    int rows, cols;
-    getConsoleSize(rows, cols);
-
-    /* "Tab" prefir - Co-ordinates by X 
-        "Space" prefix - Space occupied by the table row */
-    int nameTab = 6;
-    int indexSpace = 5; 
-    int descTab = cols / 3;
-    int logsTab = cols - 30;
-    int logsSpace = cols - logsTab;
-    int descSpace = cols - descTab - logsSpace;
-    int nameSpace = cols - indexSpace - descSpace - logsSpace;
-    int maxNameLength = nameSpace - 4;
-    int maxDescLength = descSpace - 3;
-    int maxLogsLength = logsSpace - 3;
-
     if (tasks.empty()) {
         std::cout << "The task list is empty.\n";
     }
     else {
         std::cout << "Index | Name";
         setCursorPosition(descTab, 0);
-        std::cout << "| Description" << "\n";
+        std::cout << "| Description";
         setCursorPosition(logsTab, 0);
-        std::cout << "| Logs" << "\n";
+        std::cout << "| Logs";
         setCursorPosition(0, 1);
 
         renderSeparator(cols);
         renderTasks(tasks, descTab, nameTab, maxNameLength, maxDescLength);
-        renderLogs(logs, logsTab, 28);
+        renderLogs(logs, logsTab, maxLogsLength);
     }
 }
 
@@ -42,30 +41,25 @@ void renderTasks(const std::vector<Task>& tasks, int descTab, int nameTab, int m
         std::string displayName = task.name;
         std::string displayDesc = task.description;
 
-        // Truncate name if it's too long
+        // Truncate name/description if it's too long
         if (displayName.length() > maxNameLength) {
             displayName = displayName.substr(0, maxNameLength - 3) + "...";
         }
 
-        // Truncate description if it's too long
         if (displayDesc.length() > maxDescLength) {
             displayDesc = displayDesc.substr(0, maxDescLength - 3) + "...";
         }
 
-        // Set cursor position for task index and print it
         setCursorPosition(2, i + 2);
-        std::cout << i;
+        std::cout << std::setw(5) << std::left << i; // Alignment
 
-        // Set cursor position for task name and print it
         setCursorPosition(nameTab, i + 2);
         std::cout << "| " << displayName;
 
-        // Set cursor position for task description and print it
         setCursorPosition(descTab, i + 2);
         std::cout << "| " << displayDesc << "\n";
     }
 }
-
 
 void renderLogs(const std::vector<std::string>& logs, int logsTab, int maxLogLength) {
     int logIndex = 0;
@@ -87,8 +81,33 @@ void renderLogs(const std::vector<std::string>& logs, int logsTab, int maxLogLen
 }
 
 void renderSeparator(int cols) {
-    for (size_t i = 0; i < cols; i++)
-    {
-        std::cout << "_";
-    }
+    std::cout << std::string(cols, '_') << std::endl;
 }
+
+bool displayLoadingMessages(const std::vector<Task>& tasks, const std::vector<std::string>& logs) {
+    int index = 3;
+    if (!tasks.empty()) {
+        setCursorPosition(cols - 21, rows - index);
+        std::cout << "[" ANSI_COLOR_GREEN "ok" ANSI_COLOR_RESET "] load tasks" << std::endl;
+        index++;
+    }
+    else {
+        setCursorPosition(cols - 21, rows - index);
+        std::cout << "[" ANSI_COLOR_YELLOW "warning" ANSI_COLOR_RESET "] load tasks" << std::endl;
+        index++;
+    }
+
+    if (!logs.empty()) {
+        setCursorPosition(cols - 21, rows - index);
+        std::cout << "[" ANSI_COLOR_GREEN "ok" ANSI_COLOR_RESET "] load logs" << std::endl;
+        index++;
+    }
+    else {
+        setCursorPosition(cols - 21, rows - index);
+        std::cout << "[" ANSI_COLOR_YELLOW "warning" ANSI_COLOR_RESET "] load logs" << std::endl;
+        index++;
+    }
+    setCursorPosition(0, 0);
+    return true;
+}
+

@@ -4,7 +4,7 @@
 #include <string>
 
 struct Task {
-    int index;
+    int index = 0;
     std::string name;
     std::string description;
 };

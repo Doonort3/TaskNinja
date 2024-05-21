@@ -13,5 +13,6 @@ void displayTaskListHeader(const std::vector<Task>& tasks, std::vector<std::stri
 void renderTasks(const std::vector<Task>& tasks, int descTab, int nameTab, int maxNameLength, int maxDescLength);
 void renderLogs(const std::vector<std::string>& logs, int logsTab, int maxLogLength);
 void renderSeparator(int cols);
+bool displayLoadingMessages(const std::vector<Task>& tasks, const std::vector<std::string>& logs);
 
 #endif // RENDER_UTILS_H

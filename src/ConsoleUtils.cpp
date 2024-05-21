@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   ConsoleUtils.cpp
+ * \brief  This file contains implementations for working with the console and its components.
+ * 
+ * \author ikuyu
+ * \date   May 2024
+ *********************************************************************/
+
 #include "../include/ConsoleUtils.h"
 
 #ifdef _WIN32

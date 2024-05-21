@@ -10,17 +10,20 @@ is a powerful, console-based task manager written in C++ and built using CMake. 
 - **Add Tasks**: Easily add new tasks with a name and description.
 - **Delete Tasks**: Remove tasks by specifying their index.
 - **Edit Tasks**: Update task names and descriptions.
-- **List Tasks**: Display all tasks with their names and descriptions.
+- **Saving**: The task list is saved in a separate file for restoring between sessions.
+- **Interface rendering**: Updated list of tasks and logs.
+- **TaskVview**: You can view all task details.
 
-## Future Features
+## Future Features (updatable)
 
-- **Enhanced UI**: Improve the console interface with color and formatting.
+- **Enhanced TUI**: Improve the console interface with color and formatting. 
 - **Task Prioritization**: Assign priority levels to tasks.
 - **Due Dates**: Set due dates for tasks and receive reminders.
 - **Search Functionality**: Search for tasks by name or description.
 - **Tags and Categories**: Organize tasks using tags and categories.
 - **Export/Import**: Export tasks to a file and import tasks from a file.
-- **Saving** The task list will be saved in a separate file for recovery between sessions.
+- **Documentation**: Separately written documentation on how to work and customize in TaskNinja!
+- ~~**Saving** The task list will be saved in a separate file for recovery between sessions.~~
 
 
 ## Installation
@@ -99,52 +102,11 @@ is a powerful, console-based task manager written in C++ and built using CMake. 
     ./TaskNinja
     ```
 
-2. Enter commands in the running application: (help command will be added in the future)
+2. Type "help" to get all available commands
 
-   - **Add a Task**: To add a task, use the following command:
-    
         ```sh
-        add_task <task_name>
+        help
         ```
-        
-        Example:
-        
-        ```sh
-        add_task "Write documentation"
-        ```
-
-    - **Delete a Task**: To delete a task, use the following command:
-    
-        ```sh
-        del_task <task_number>
-        ```
-        
-        Example:
-        
-        ```sh
-        del_task 0
-        ```
-
-    - **Edit a Task**: To edit a task name or description, use the following commands:
-    
-        ```sh
-        edit_task <task_number> -n <new_name>
-        edit_task <task_number> -d <new_description>
-        ```
-        
-        Examples:
-        
-        ```sh
-        edit_task 1 -n "Write comprehensive documentation"
-        edit_task 1 -d "Include all commands and usage examples"
-        ```
-
-    - **List Tasks**: To list all tasks, use the following command:
-    
-        ```sh
-        list
-        ```
-        This will display all tasks with all the information about it.
 
 ## Contributing
 
